@@ -426,7 +426,11 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-   throw new Error('Not implemented');
+   const fieldSorter = (fields) => (a, b) => fields.map(name => {
+      return a[name] > b[name] ? 1 : a[name] < b[name] ? -1 : 0;
+  }).reduce((p, n) => p ? p : n, 0);
+
+   return arr.sort(fieldSorter(['country', 'city']));
    }
 
    /**
@@ -553,7 +557,14 @@ function sortCitiesArray(arr) {
     *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
     */
    function getElementByIndexes(arr, indexes) {
-      throw new Error('Not implemented');
+      let result = arr;
+      function getEl(arr1, index) {
+         return arr1[index];
+            };
+
+      return indexes.map(el=> {
+         return result = getEl(result, el);
+      }).slice(-1);
    }
 
 
@@ -576,7 +587,11 @@ function sortCitiesArray(arr) {
     * 
     */
    function swapHeadAndTail(arr) {
-      throw new Error('Not implemented');
+      let size = Math.floor(arr.length/2);
+      if (size === 0) return arr;
+      let patch1 = arr.slice(0, size);
+      let patch2 = arr.slice(-size);
+      return arr.length % 2 ? [...patch2, arr[size], ...patch1] : [...patch2, ...patch1];
    }
 
 
